@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "sandbox--data-wrangling"
+version = "0.1.0"
+description = ""
+authors = ["Ryuichi Inagaki <ryuichi.inagaki.24@googlemail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pyarrow = "^11.0.0"
+jupyterlab = "^3.6.1"
+pandas = "^1.5.3"
+polars = "^0.16.18"
+duckdb = "^0.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

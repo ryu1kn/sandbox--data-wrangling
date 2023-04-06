@@ -11,7 +11,10 @@ Playing with
 
 ```sh
 poetry install
+poetry run scripts/prepare-data.py
 ```
+
+Then go play with notebooks under [notebooks](./notebooks) directory :)
 
 ## Troubleshooting
 

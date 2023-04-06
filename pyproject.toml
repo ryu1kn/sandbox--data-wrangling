@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Ryuichi Inagaki <ryuichi.inagaki.24@googlemail.com>"]
 readme = "README.md"
+packages = [{include = "dw", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"

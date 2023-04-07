@@ -7,18 +7,18 @@
 #
 from os import makedirs
 from pathlib import Path
-
-import pyarrow as pa
-import pyarrow.parquet as pq
-import pyarrow.dataset as ds
-import numpy as np
-
-from dw.data import human_readable_size
-from dw.sample_data import get_data_dir
 from shutil import rmtree
 
+import numpy as np
+import pyarrow as pa
+import pyarrow.dataset as ds
+import pyarrow.parquet as pq
+
+from dw.config import DataDir
+from dw.data import human_readable_size
+
 sample_size = 1_000_000
-data_dir = get_data_dir()
+data_dir = DataDir.SOURCE
 
 text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien tellus,
 aliquet eu semper ut, faucibus in augue. Donec mollis nisi vitae nulla tristique, ut
@@ -41,13 +41,13 @@ def main():
 
 
 def clear_data_dir():
-    print_heading(f"Preparing data directory at: {get_data_dir}")
-    rmtree(get_data_dir, ignore_errors=True)
-    makedirs(get_data_dir)
+    print_heading(f"Preparing data directory at: {data_dir}")
+    rmtree(data_dir, ignore_errors=True)
+    makedirs(data_dir)
 
 
 def create_data():
-    print_heading(f"Creating data files under: {get_data_dir}")
+    print_heading(f"Creating data files under: {data_dir}")
     for n in range(10):
         print(f"Saving parquet file part {n}")
         t = pa.table({
@@ -55,15 +55,15 @@ def create_data():
             "text": [text * 3] * sample_size,
             "to_be_ignored": np.random.randint(30, size=sample_size)
         })
-        pq.write_table(t, f"{get_data_dir}/part-{n}.parquet")
+        pq.write_table(t, f"{data_dir}/part-{n}.parquet")
 
 
 def report_data_stats():
     print_heading("Data stats")
-    rows = ds.dataset(get_data_dir, format="parquet").count_rows()
+    rows = ds.dataset(data_dir, format="parquet").count_rows()
     print(f"Number of rows: {rows}")
 
-    dir_size = sum(f.stat().st_size for f in Path(get_data_dir).glob('**/*') if f.is_file())
+    dir_size = sum(f.stat().st_size for f in Path(data_dir).glob('**/*') if f.is_file())
     print(f"Data size: {human_readable_size(dir_size)}")
 
 

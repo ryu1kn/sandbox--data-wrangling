@@ -10,9 +10,10 @@ packages = [{include = "dw", from = "src"}]
 python = "^3.11"
 pyarrow = "^11.0.0"
 jupyterlab = "^3.6.1"
-pandas = "^2.0.0"
+pandas = "^2.2.0"
 polars = "^0.20.5"
 duckdb = "^0.7.1"
+seaborn = "^0.13.2"
 
 
 [build-system]
